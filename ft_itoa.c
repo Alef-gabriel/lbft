@@ -5,7 +5,7 @@ static int	ft_len(int n)
 	int	cont;
 
 	cont = 0;
-	if (n < 10 && n >= 0)
+	if (n == 0)
 		cont++;
 	if (n < 0)
 	{
