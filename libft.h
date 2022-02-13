@@ -1,12 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algabrie <alefgabrielr@gmail.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/14 18:11:51 by algabrie          #+#    #+#             */
+/*   Updated: 2021/09/14 18:30:45 by algabrie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-typedef struct	s_list
+typedef struct s_list
 {
-	void	*content;
+	void			*content;
 	struct s_list	*next;
 }	t_list;
 
@@ -86,7 +101,7 @@ t_list	*ft_lstnew(void *content);
 
 void	ft_lstadd_front(t_list **lst, t_list *new);
 
-int	ft_lstsize(t_list *lst);
+int		ft_lstsize(t_list *lst);
 
 t_list	*ft_lstlast(t_list *lst);
 
@@ -97,6 +112,12 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+/*
+ * NEWS
+*/
+char	*get_next_line(int fd);
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *),void (*del)(void *));
+void	ft_delete(char **buf);
+
+int		ft_buf_verify(char *buf);
 #endif

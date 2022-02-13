@@ -1,84 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algabrie <alefgabrielr@gmail.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/14 18:07:09 by algabrie          #+#    #+#             */
+/*   Updated: 2021/09/14 18:07:10 by algabrie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int	ft_trima(char const *s, char c, int i)
+static size_t	wrd_cont(char const *s, char c)
 {
-	while (s[i] == c)
-		i++;
-	return (i);
-}
+	size_t	i;
 
-static int	ft_cphrase(char const *s, char c)
-{
-	int		cont;
-	int		i;
-
-	i = ft_trima(s, c, 0);
-	if (s[i] != c && s[i] != 0)
-		cont = 1;
-	else
-		cont = 0;
-	while (s[i])
+	i = 0;
+	while (*s)
 	{
-		if (s[i] == c && (s[i + 1] != c && s[i + 1] != 0))
-			cont++;
-		i++;
+		while (*s == c)
+			s++;
+		if (*s)
+		{
+			i++;
+			while (*s != c && *s)
+				s++;
+		}
 	}
-	return (cont);
+	return (i + 1);
 }
 
-static char	*ft_append(char const *s, int size, int pos)
+static char	*apply(char const *s, char c)
 {
 	char	*p;
 	int		i;
 
 	i = 0;
-	p = (char *)malloc(size + 1);
-	if (!p)
-		return (0);
-	p[size] = 0;
-	while (size)
-	{
-		p[i] = s[pos - size];
+	while (s[i] != c && s[i] != 0)
 		i++;
-		size--;
+	p = (char *)malloc(i + 1);
+	p[i--] = 0;
+	i = 0;
+	while (*s != c && *s != 0)
+	{
+		p[i++] = *s;
+		s++;
 	}
 	return (p);
 }
 
-static void	ft_engine(char const *s, char c, char **split)
-{
-	int		pos;
-	int		size;
-	int		i;
-
-	i = 0;
-	size = 0;
-	pos = ft_trima(s, c, 0);
-	while (s[pos])
-	{
-		if (s[pos] == c || pos + 1 == (int)ft_strlen(s))
-		{
-			if (pos + 1 == (int)ft_strlen(s) && !(ft_trima(s, c, pos) > pos))
-			{
-				size++;
-				pos++;
-			}
-			split[i++] = ft_append(s, size, pos);
-			pos = ft_trima(s, c, pos);
-			size = 0;
-		}
-		if (s[pos] != c)
-			size++;
-		pos++;
-	}
-	split[i] = NULL;
-}
-
 char	**ft_split(char const *s, char c)
 {
+	int		k;
 	char	**split;
 
-	split = (char **)malloc(sizeof(char *) * (ft_cphrase(s, c) + 1));
-	ft_engine(s, c, split);
+	k = 0;
+	split = (char **)malloc(sizeof(char *) * wrd_cont(s, c));
+	while (*s)
+	{
+		while (*s == c)
+			s++;
+		if (*s != 0)
+			split[k++] = apply(s, c);
+		while (*s != c && *s != 0)
+			s++;
+	}
+	split[k++] = 0;
 	return (split);
 }

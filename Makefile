@@ -31,6 +31,8 @@ SRCS = ./ft_isalnum.c \
 	./ft_split.c \
 	./ft_striteri.c \
 	./ft_strmapi.c \
+	./get_next_line_utils.c\
+	./get_next_line.c\
 	./ft_itoa.c
 
 OBJSRC = ./ft_lstnew.c\
@@ -40,8 +42,7 @@ OBJSRC = ./ft_lstnew.c\
 	./ft_lstadd_back.c\
 	./ft_lstdelone.c\
 	./ft_lstclear.c\
-	./ft_lstiter.c\
-	./ft_lstmap.c
+	./ft_lstiter.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -49,7 +50,7 @@ BONUSOBJS = $(OBJSRC:.c=.o)
 
 NAME = libft.a
 
-CC = clang
+CC = gcc
 RM = rm -f
 
 CFLAGS = -Wall -Werror -Wextra

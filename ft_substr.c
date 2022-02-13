@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: algabrie <alefgabrielr@gmail.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/14 18:09:10 by algabrie          #+#    #+#             */
+/*   Updated: 2021/09/14 18:09:11 by algabrie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static char	*ft_pnull(void)
@@ -20,8 +32,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (start > max)
 		return (ft_pnull());
 	if (len >= max)
-		len = max + 1;
-	p = (char *)malloc(len);
+		len = max - start;
+	p = (char *)malloc(len + 1);
 	while (len - i && s[start])
 	{
 		p[i] = s[start];
